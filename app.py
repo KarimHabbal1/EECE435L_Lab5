@@ -1,4 +1,9 @@
 import sqlite3
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 def connect_to_db():
     return sqlite3.connect('database.db')
@@ -119,12 +124,6 @@ def delete_user(user_id):
     finally:
         conn.close()
     return message
-
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/api/users', methods=['GET'])
 def api_get_users():
